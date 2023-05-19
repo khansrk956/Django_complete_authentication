@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        .er{
+            color: tomato;
+        }
+        .success{
+            color: darkolivegreen;
+        }
+    </style>
+</head>
+<body>
+    <h2>Login Here</h2>
+    <form action="" method="post" novalidate>
+        {% for fm in form %}
+            {{ fm.label_tag }} {{fm}} {{fm.errors|striptags}} <br> <br>
+        {% endfor %}
+        <input type="submit" value="Login">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="er">{{error}}</p>
+        {% endfor %}   
+        {% endif %}
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+        <small {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</small>
+    {% endfor %}   
+    {% endif %}
+    <hr><br>
+    <a href="{% url 'signup' %}">Signup</a>
+</body>
+</html>
